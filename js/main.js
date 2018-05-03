@@ -15,7 +15,8 @@ sendBtn.addEventListener('click', sendChat);
 
 // Create a random room if not already present in the URL.
 var isInitiator;
-var room = prompt("Enter room name:");
+var userName = prompt("Who are you?");
+var room = "gg-rip-sad"
 if (!room) {
   room = window.location.hash = randomToken();
 }
@@ -34,6 +35,7 @@ socket.on('ipaddr', function(ipaddr) {
 socket.on('created', function(room, clientId) {
   console.log('Created room', room, '- my client ID is', clientId);
   isInitiator = true;
+  createPeerConnection(isInitiator, configuration);
 });
 
 socket.on('joined', function(room, clientId) {
@@ -229,16 +231,18 @@ function receiveDataFirefoxFactory() {
 function sendChat() {
   console.log('Sending ', messageInput.value);
 
-  if (!dataChannel) {
-    logError('Connection has not been initiated. ' +
-      'Get two peers in the same room first');
-    return;
-  } else if (dataChannel.readyState === 'closed') {
-    logError('Connection was lost. Peer closed the connection.');
-    return;
-  }
-
-  dataChannel.send(messageInput.value);   
+  // if (!dataChannel) {
+  //   logError('Connection has not been initiated. ' +
+  //     'Get two peers in the same room first');
+  //   return;
+  // } else if (dataChannel.readyState === 'closed') {
+  //   logError('Connection was lost. Peer closed the connection.');
+  //   return;
+  // }
+  incomingMessages.innerHTML += ('\n ' + userName + ': ' + messageInput.value);
+  incomingMessages.scrollTop = incomingMessages.scrollHeight;
+  dataChannel.send(userName + ': ' + messageInput.value); 
+  messageInput.value = '';  
 }
 
 function randomToken() {
