@@ -246,7 +246,7 @@ function sendChat() {
   //   logError('Connection was lost. Peer closed the connection.');
   //   return;
   // }
-  incomingMessages.innerHTML += ('\n ' + userName + ': ' + messageInput.value);
+  incomingMessages.innerHTML += ('\n' + userName + ': ' + messageInput.value);
   incomingMessages.scrollTop = incomingMessages.scrollHeight;
   dataChannel.send(userName + ': ' + messageInput.value); 
   messageInput.value = '';  
