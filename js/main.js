@@ -12,6 +12,13 @@ var sendBtn = document.getElementById('send');
 
 // Attach event handlers
 sendBtn.addEventListener('click', sendChat);
+messageInput.onkeydown = function(e) {
+  e = e || window.event;
+  if (e.keyCode == 13) {
+    sendChat();
+    return false;
+  }
+}
 
 // Create a random room if not already present in the URL.
 var isInitiator;
