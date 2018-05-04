@@ -42,7 +42,6 @@ socket.on('ipaddr', function(ipaddr) {
 socket.on('created', function(room, clientId) {
   console.log('Created room', room, '- my client ID is', clientId);
   isInitiator = true;
-  createPeerConnection(isInitiator, configuration);
 });
 
 socket.on('joined', function(room, clientId) {
@@ -230,22 +229,21 @@ function receiveDataFirefoxFactory() {
   };
 }
 
-
 /****************************************************************************
 * Aux functions, mostly UI-related
 ****************************************************************************/
 
 function sendChat() {
   console.log('Sending ', messageInput.value);
+  console.log(dataChannel)
 
-  // if (!dataChannel) {
-  //   logError('Connection has not been initiated. ' +
-  //     'Get two peers in the same room first');
-  //   return;
-  // } else if (dataChannel.readyState === 'closed') {
-  //   logError('Connection was lost. Peer closed the connection.');
-  //   return;
-  // }
+  if (!dataChannel) {
+    alert('No one is in the room');
+    return;
+  } else if (dataChannel.readyState === 'closed') {
+    alert('Connection was lost. Peer closed the connection.');
+    return;
+  }
   incomingMessages.innerHTML += ('\n' + userName + ': ' + messageInput.value);
   incomingMessages.scrollTop = incomingMessages.scrollHeight;
   dataChannel.send(userName + ': ' + messageInput.value); 
