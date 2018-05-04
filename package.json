@@ -1,5 +1,5 @@
 {
-  "name": "simple-http-server",
+  "name": "simple-http-server-webrtc-chat",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
